@@ -13,12 +13,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Pasek informacyjny -->
+        
         <TextBlock x:Name="StatusText" Grid.Row="0" Text="Ruch: Białe" 
                    HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" 
                    Foreground="White" Margin="0,0,0,10"/>
 
-        <!-- Szachownica -->
+        
         <UniformGrid x:Name="ChessBoardGrid" Grid.Row="1" Rows="8" Columns="8" 
                      Background="#404040" Cursor="Hand"/>
     </Grid>
