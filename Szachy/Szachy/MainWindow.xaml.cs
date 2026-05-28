@@ -7,7 +7,7 @@ namespace Szachy
 {
     public partial class MainWindow : Window
     {
-        // Reprezentacja planszy: wielkie litery = Białe, małe = Czarne, puste = " "
+       
         private string[,] board = new string[8, 8]
         {
             { "r", "n", "b", "q", "k", "b", "n", "r" },
@@ -53,36 +53,35 @@ namespace Szachy
             RefreshBoardDisplay();
         }
 
-        // ZMODYFIKOWANA FUNKCJA: Teraz podświetla także możliwe ruchy
+        
         private void RefreshBoardDisplay()
         {
             for (int r = 0; r < 8; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
-                    // 1. Domyślne kolorowanie szachownicy
+                   
                     if ((r + c) % 2 == 0)
-                        buttons[r, c].Background = new SolidColorBrush(Color.FromRgb(240, 217, 181)); // Jasne
+                        buttons[r, c].Background = new SolidColorBrush(Color.FromRgb(240, 217, 181)); 
                     else
-                        buttons[r, c].Background = new SolidColorBrush(Color.FromRgb(181, 136, 99));  // Ciemne
+                        buttons[r, c].Background = new SolidColorBrush(Color.FromRgb(181, 136, 99)); 
 
-                    // 2. Podświetlenie MOŻLIWYCH RUCHÓW (na żółto-pomarańczowy)
-                    // Jeśli jakaś figura jest zaznaczona, sprawdzamy czy może stanąć na polu [r, c]
+                   
                     if (selectedRow != -1 && selectedCol != -1)
                     {
                         if (IsValidMove(selectedRow, selectedCol, r, c))
                         {
-                            buttons[r, c].Background = new SolidColorBrush(Color.FromRgb(255, 235, 156)); // Jasnożółty dla wskazania drogi
+                            buttons[r, c].Background = new SolidColorBrush(Color.FromRgb(255, 235, 156)); 
                         }
                     }
 
-                    // 3. Podświetlenie AKTUALNIE ZAZNACZONEJ figury (na zielono)
+                  
                     if (r == selectedRow && c == selectedCol)
                     {
                         buttons[r, c].Background = Brushes.LightGreen;
                     }
 
-                    // 4. Przypisanie figur i kolorów tekstu
+                
                     string piece = board[r, c];
                     buttons[r, c].Content = GetPieceSymbol(piece);
                     buttons[r, c].Foreground = char.IsUpper(piece, 0) ? Brushes.White : Brushes.Black;
@@ -115,14 +114,14 @@ namespace Szachy
             string clickedPiece = board[row, col];
             bool isPieceWhite = char.IsUpper(clickedPiece, 0);
 
-            // 1. Wybór lub zmiana zaznaczenia własnej figury
+            
             if (clickedPiece != " " && isPieceWhite == isWhiteTurn)
             {
                 selectedRow = row;
                 selectedCol = col;
-                RefreshBoardDisplay(); // Odświeży i pokaże żółte pola dla nowej figury
+                RefreshBoardDisplay(); 
             }
-            // 2. Próba wykonania ruchu na zaznaczone pole
+           
             else if (selectedRow != -1 && selectedCol != -1)
             {
                 if (IsValidMove(selectedRow, selectedCol, row, col))
@@ -135,7 +134,7 @@ namespace Szachy
                 }
                 else
                 {
-                    // Kliknięcie w niedozwolone miejsce resetuje zaznaczenie (czystsze UI niż wyskakujący komunikat)
+                   
                     selectedRow = -1;
                     selectedCol = -1;
                     RefreshBoardDisplay();
